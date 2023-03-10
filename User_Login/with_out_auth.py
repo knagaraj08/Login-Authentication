@@ -1,17 +1,9 @@
 from flask import Flask, request, jsonify
-from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 from pymongo import MongoClient
 
 app = Flask(__name__)
-
-app.config['JWT_SECRET_KEY'] = 'by87u1f2clo8tylg2tfdf4'
-
-jwt = JWTManager(app)
-
 client = MongoClient("mongodb://localhost:27017")
-
 db = client["Dem"]
-
 user_collection = db["users"]
 
 
@@ -24,7 +16,6 @@ def hello():
 @app.route('/api/v1/users', methods=['POST'])
 def register():
     new_user = request.get_json()
-    # lets encrypt the entered password for the security
     # now first we will check if the user exits or not
     doc = user_collection.find_one({"username": new_user["username"]})
     if not doc:
