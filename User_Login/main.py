@@ -33,7 +33,7 @@ def hello():
 @app.route('/api/v1/users', methods=['POST'])
 def register():
     new_user = request.get_json()
-    # lets encrypt the entered password for the security
+    # let us encrypt the entered password for the security
     new_user["password"] = hashlib.sha256(new_user["password"].encode('utf-8')).hexdigest()
 
     # now first we will check if the user exits or not
